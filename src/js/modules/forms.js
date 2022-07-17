@@ -43,7 +43,7 @@ const forms = () => {
 
             postData('assets/server.php', formData)
                 .then(res => {
-                    statusMessage.textContent = message.success; 
+                   statusMessage.textContent = message.success; 
                 })
                 .catch(() => {
                     statusMessage.textContent = message.failure; 
