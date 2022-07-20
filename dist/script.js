@@ -17806,6 +17806,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+/* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
+/* harmony import */ var _modules_checkNumInputs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/checkNumInputs */ "./src/js/modules/checkNumInputs.js");
+/* harmony import */ var _modules_requiredInputStyle__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/requiredInputStyle */ "./src/js/modules/requiredInputStyle.js");
+
+
+
+
+
+
+
 
 
 
@@ -17813,12 +17823,121 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
+  var modalState = {
+    form: 0,
+    type: 'tree'
+  };
+  Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/changeModalState.js":
+/*!********************************************!*\
+  !*** ./src/js/modules/changeModalState.js ***!
+  \********************************************/
+/*! exports provided: default, windowWidth, windowHeight, windowProfile */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "windowWidth", function() { return windowWidth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "windowHeight", function() { return windowHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "windowProfile", function() { return windowProfile; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _checkNumInputs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkNumInputs */ "./src/js/modules/checkNumInputs.js");
+
+
+var windowWidth = document.querySelectorAll('#width'),
+    windowHeight = document.querySelectorAll('#height'),
+    windowForm = document.querySelectorAll('.balcon_icons_img'),
+    windowType = document.querySelectorAll('#view_type'),
+    windowProfile = document.querySelectorAll('.checkbox');
+
+var changeModalState = function changeModalState(state) {
+  Object(_checkNumInputs__WEBPACK_IMPORTED_MODULE_1__["default"])('#width');
+  Object(_checkNumInputs__WEBPACK_IMPORTED_MODULE_1__["default"])('#height');
+
+  function bindActionToElems(event, elem, prop) {
+    elem.forEach(function (item, i) {
+      item.addEventListener(event, function () {
+        switch (item.nodeName) {
+          case 'SPAN':
+            state[prop] = i;
+            break;
+
+          case 'INPUT':
+            if (item.getAttribute('type') === 'checkbox') {
+              i === 0 ? state[prop] = "Холодне" : state[prop] = "Тепле";
+              elem.forEach(function (box, j) {
+                box.checked = false;
+
+                if (i == j) {
+                  box.checked = true;
+                }
+              });
+            } else {
+              state[prop] = item.value;
+            }
+
+            break;
+
+          case 'SELECT':
+            state[prop] = item.value;
+            break;
+        }
+
+        console.log(state);
+      });
+    });
+  }
+
+  bindActionToElems('click', windowForm, 'form');
+  bindActionToElems('input', windowWidth, 'width');
+  bindActionToElems('input', windowHeight, 'height');
+  bindActionToElems('change', windowType, 'type');
+  bindActionToElems('change', windowProfile, 'profile');
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (changeModalState);
+
+
+
+
+/***/ }),
+
+/***/ "./src/js/modules/checkNumInputs.js":
+/*!******************************************!*\
+  !*** ./src/js/modules/checkNumInputs.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var checkNumInputs = function checkNumInputs(selector) {
+  var numInputs = document.querySelectorAll(selector);
+  numInputs.forEach(function (item) {
+    item.addEventListener('input', function () {
+      item.value = item.value.replace(/\D/, '');
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (checkNumInputs);
 
 /***/ }),
 
@@ -17837,12 +17956,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _checkNumInputs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./checkNumInputs */ "./src/js/modules/checkNumInputs.js");
 
 
 
@@ -17850,15 +17968,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var forms = function forms() {
+var forms = function forms(state) {
   var form = document.querySelectorAll('form'),
       input = document.querySelectorAll('input'),
-      phoneInputs = document.querySelectorAll('input[name="user_phone"]');
-  phoneInputs.forEach(function (item) {
-    item.addEventListener('input', function () {
-      item.value = item.value.replace(/\D/, '');
-    });
-  });
+      windows = document.querySelectorAll('[data-modal]');
+  Object(_checkNumInputs__WEBPACK_IMPORTED_MODULE_5__["default"])('input[name="user_phone"]');
   var message = {
     loading: 'Завантаження...',
     success: "Дякуємо! Скоро ми з вами зв'яжемося",
@@ -17907,6 +18021,13 @@ var forms = function forms() {
       statusMessage.classList.add('status');
       item.appendChild(statusMessage);
       var formData = new FormData(item);
+
+      if (item.getAttribute('data-calc') === 'end') {
+        for (var key in state) {
+          formData.append(key, state[key]);
+        }
+      }
+
       postData('assets/server.php', formData).then(function (res) {
         statusMessage.textContent = message.success;
       }).catch(function () {
@@ -17915,7 +18036,16 @@ var forms = function forms() {
         clearInputs();
         setTimeout(function () {
           statusMessage.remove();
-        }, 5000);
+        }, 1000);
+        setTimeout(function () {
+          windows.forEach(function (item) {
+            item.style.display = 'none';
+          });
+        }, 1000);
+
+        for (var _key in state) {
+          delete state[_key];
+        }
       });
     });
   });
@@ -17936,7 +18066,15 @@ var forms = function forms() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _changeModalState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./changeModalState */ "./src/js/modules/changeModalState.js");
+/* harmony import */ var _requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./requiredInputStyle */ "./src/js/modules/requiredInputStyle.js");
 
+
+
+
+
+
+console.log(_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"][0].nextElementSibling);
 
 var modals = function modals() {
   function bindModal(triggerSelector, modalSelector, closeSelector) {
@@ -17944,48 +18082,96 @@ var modals = function modals() {
     var trigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector),
         close = document.querySelector(closeSelector),
-        windows = document.querySelectorAll('[data-modal]');
-    trigger.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        if (e.target) {
-          e.preventDefault();
-        }
+        windows = document.querySelectorAll('[data-modal]'),
+        inputsCalcEnd = document.querySelectorAll('form[data-calc="end"] input');
 
-        windows.forEach(function (item) {
-          item.style.display = 'none';
-        });
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-        /* 
-        document.body.classList.add('modal-open'); */
-      });
-    });
-    close.addEventListener('click', function () {
+    function showModal(modalSelector, displayStyle) {
+      modalSelector.style.display = displayStyle;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
       windows.forEach(function (item) {
         item.style.display = 'none';
       });
       modal.style.display = 'none';
       document.body.style.overflow = '';
-      /* 
-      document.body.classList.remove('modal-open'); */
+    }
+
+    trigger.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        var target = e.target;
+
+        if (target) {
+          e.preventDefault();
+        }
+
+        if (target.classList.contains('popup_calc_button')) {
+          if (_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowWidth"][0].value && _changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowHeight"][0].value) {
+            hideModal();
+            showModal(modal, 'block');
+          }
+
+          if (_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowWidth"][0].value) {
+            Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["removeRequiredStyle"])(_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowWidth"][0]);
+          } else {
+            Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["addRequiredStyle"])(_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowWidth"][0]);
+          }
+
+          if (_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowHeight"][0].value) {
+            Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["removeRequiredStyle"])(_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowHeight"][0]);
+          } else {
+            Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["addRequiredStyle"])(_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowHeight"][0]);
+          }
+        } else if (target.classList.contains('popup_calc_profile_button')) {
+          if (_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"][0].checked || _changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"][1].checked) {
+            hideModal();
+            showModal(modal, 'block');
+          }
+
+          if (_changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"][0].checked || _changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"][1].checked) {
+            _changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"].forEach(function (item) {
+              Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["removeRequiredStyle"])(item.nextElementSibling);
+            });
+          } else {
+            _changeModalState__WEBPACK_IMPORTED_MODULE_1__["windowProfile"].forEach(function (item) {
+              Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["addRequiredStyle"])(item.nextElementSibling);
+            });
+          }
+        } else if (target.classList.contains('popup_calc_end_btn')) {
+          if (inputsCalcEnd[0] || inputsCalcEnd[1]) {
+            hideModal();
+            showModal(modal, 'block');
+          }
+
+          if (inputsCalcEnd[0] || inputsCalcEnd[1]) {
+            inputsCalcEnd.forEach(function (item) {
+              Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["removeRequiredStyle"])(item);
+            });
+          } else {
+            inputsCalcEnd.forEach(function (item) {
+              Object(_requiredInputStyle__WEBPACK_IMPORTED_MODULE_2__["addRequiredStyle"])(item);
+            });
+          }
+        } else {
+          hideModal();
+          showModal(modal, 'block');
+        }
+      });
+    });
+    close.addEventListener('click', function () {
+      hideModal();
     });
     modal.addEventListener('click', function (e) {
       if (e.target === modal && closeClickOverlay) {
-        windows.forEach(function (item) {
-          item.style.display = 'none';
-        });
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-        /* 
-        document.body.classList.remove('modal-open'); */
+        hideModal();
       }
     });
   }
 
   function showModalByTime(selector, time) {
     setTimeout(function () {
-      document.querySelector(selector).style.display = 'block';
-      document.body.style.overflow = 'hidden';
+      showModal(document.querySelector(selector), 'block');
     }, time);
   }
 
@@ -17998,6 +18184,30 @@ var modals = function modals() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/requiredInputStyle.js":
+/*!**********************************************!*\
+  !*** ./src/js/modules/requiredInputStyle.js ***!
+  \**********************************************/
+/*! exports provided: addRequiredStyle, removeRequiredStyle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addRequiredStyle", function() { return addRequiredStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeRequiredStyle", function() { return removeRequiredStyle; });
+function addRequiredStyle(inputElem) {
+  inputElem.classList.add('input_border_required');
+}
+
+function removeRequiredStyle(inputElem) {
+  inputElem.classList.remove('input_border_required');
+}
+
+
+
 
 /***/ }),
 

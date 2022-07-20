@@ -1,13 +1,11 @@
-const forms = () => {
+import checkNumInputs from "./checkNumInputs";
+
+const forms = (state) => {
     const form = document.querySelectorAll('form'),
           input = document.querySelectorAll('input'),
-          phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+          windows = document.querySelectorAll('[data-modal]');
 
-    phoneInputs.forEach(item => {
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/, '');
-        });
-    });
+    checkNumInputs('input[name="user_phone"]')
 
     const message = {
         loading: 'Завантаження...',
@@ -40,6 +38,11 @@ const forms = () => {
             item.appendChild(statusMessage);
 
             const formData = new FormData(item);
+            if (item.getAttribute('data-calc') === 'end') {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
 
             postData('assets/server.php', formData)
                 .then(res => {
@@ -52,7 +55,15 @@ const forms = () => {
                     clearInputs();
                     setTimeout(() => {
                         statusMessage.remove();
-                    }, 5000);
+                    }, 1000);
+                    setTimeout(() => {
+                        windows.forEach(item => {
+                            item.style.display = 'none';
+                        });
+                    }, 1000);
+                    for (let key in state) {
+                        delete state[key];
+                    }
                 });
         })
     })
