@@ -12,11 +12,18 @@ const modals = () => {
               modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector),
               windows = document.querySelectorAll('[data-modal]'),
-              inputsCalcEnd = document.querySelectorAll('form[data-calc="end"] input');
+              inputsCalcEnd = document.querySelectorAll('form[data-calc="end"] input'),
+              scroll = calcScroll(); //width of scrolling element
         
         function showModal(modalSelector, displayStyle) {
             modalSelector.style.display = displayStyle;
             document.body.style.overflow = 'hidden';
+
+            if ( /Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                //condition for mobile browser
+            } else {
+                document.body.style.marginRight = `${scroll}px`;
+            }
         }
 
         function hideModal() {
@@ -26,6 +33,7 @@ const modals = () => {
 
             modal.style.display = 'none';
             document.body.style.overflow = '';
+            document.body.style.marginRight = `0px`;
         }
         
         trigger.forEach(item => {
@@ -107,6 +115,24 @@ const modals = () => {
         setTimeout(() => {
             showModal(document.querySelector(selector), 'block');
         }, time);
+    }
+
+    function calcScroll() {
+        let div = document.createElement('div');
+        
+        div.style.width = '50px';
+        div.style.height = '50px';
+        div.style.overflowY = 'scroll';
+        div.style.visibility = 'hidden';
+
+        document.body.appendChild(div);
+
+        console.log(div.offsetWidth);
+        console.log(div.clientWidth);
+        let scrolledWidth = div.offsetWidth - div.clientWidth;
+        div.remove();
+
+        return scrolledWidth;
     }
 
     bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
