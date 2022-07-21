@@ -828,6 +828,7 @@ textarea:focus {
 
 /*Modals*/
 .popup,
+.popup_img,
 .popup_engineer,
 .popup_calc_end {
   display: none;
@@ -838,6 +839,16 @@ textarea:focus {
   height: 100%;
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup_img {
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  display: none;
+}
+.popup_img img {
+  max-width: inherit;
 }
 
 .myimage {

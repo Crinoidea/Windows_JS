@@ -8,8 +8,8 @@ const timer = (id, deadline) => { // id - place for render; deadline - timer goe
         }
     };
 
-    getTimeRemaining = (endtime) => {
-        const t = Date.parse(endtime) - Data.parse(newDate()), //time between present and deadline, ms
+    const getTimeRemaining = (endtime) => {
+        const t = Date.parse(endtime) - Date.parse(new Date()), //time between present and deadline, ms
               seconds = Math.floor((t/1000) % 60), //t/1000 - all time in s, % 60 - remains in s
               minutes = Math.floor((t/1000/60) % 60), //t/1000/60 - all time in m
               hours = Math.floor((t/(1000 * 60 * 60)) % 24), //t/(1000*60*60 - all time in h

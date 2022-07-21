@@ -18291,8 +18291,8 @@ var timer = function timer(id, deadline) {
     }
   };
 
-  getTimeRemaining = function getTimeRemaining(endtime) {
-    var t = Date.parse(endtime) - Data.parse(newDate()),
+  var getTimeRemaining = function getTimeRemaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date()),
         //time between present and deadline, ms
     seconds = Math.floor(t / 1000 % 60),
         //t/1000 - all time in s, % 60 - remains in s
