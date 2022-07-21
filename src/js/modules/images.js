@@ -4,6 +4,7 @@ const images = () => {
           bigImage = document.createElement('img');
         
     imgPopup.classList.add('popup_img');
+    imgPopup.classList.add('faded');
 
     worksSection.appendChild(imgPopup).appendChild(bigImage);
 

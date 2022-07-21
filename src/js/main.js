@@ -4,17 +4,10 @@ import tabs from './modules/tabs';
 import forms from './modules/forms';
 
 import changeModalState from './modules/changeModalState';
-import { windowWidth } from "./modules/changeModalState";
-import { windowHeight } from "./modules/changeModalState";
-import { windowProfile } from "./modules/changeModalState";
-
-import checkNumInputs from './modules/checkNumInputs';
-
-import {addRequiredStyle} from './modules/requiredInputStyle';
-import {removeRequiredStyle} from './modules/requiredInputStyle';
 
 import timer from './modules/timer';
 import images from './modules/images';
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
