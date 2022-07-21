@@ -1580,8 +1580,6 @@ textarea:focus {
     margin-top: 1rem;
   }
 
-
-
   .header .working_hours p {
     font-size: 1.2rem;
   }
@@ -1833,6 +1831,16 @@ textarea:focus {
 
   .popup_calc_profile_button {
     padding: 1rem 5rem;
+  }
+
+  .timer1 {
+    width: 290px;
+  }
+  .numbers1 span {
+    font-size: 30px;
+  }
+  .description1 {
+    font-size: 15px;
   }
 }
 
