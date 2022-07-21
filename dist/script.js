@@ -17819,6 +17819,7 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
+  new WOW().init();
   var modalState = {
     form: 0,
     type: 'tree'
